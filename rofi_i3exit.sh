@@ -9,7 +9,7 @@ if [[ $res = "SUSPEND TO RAM" ]]; then
     systemctl suspend
 fi
 if [[ $res = "LOGOUT TO TTY" ]]; then
-    pkill -f xss-lock && killall notification_loop.sh && rm -f /tmp/screen_lock_toggled_off.pid && skippy-xd --stop-daemon && i3-msg exit
+    pkill -f xss-lock && killall notification_loop.sh && rm -f /tmp/screen_lock_toggled_off.pid && i3-msg exit
 fi
 if [[ $res = "REBOOT" ]]; then
     systemctl reboot
