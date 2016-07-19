@@ -12,11 +12,11 @@ while [ -n "$CMD" ]; do
 		grep -v "^$CMD" $FILE > /tmp/todo
 		mv /tmp/todo $FILE
         HEIGHT=$(($HEIGHT-1))
-        ACTION="cat $FILE | rofi -dmenu -lines 5 -p 'Add/delete a task: '"
+        ACTION="cat $FILE | rofi -dmenu -lines 5 -p 'Add/delete a task or reminder: '"
 	else
 		echo "$CMD" >> $FILE
         HEIGHT=$(($HEIGHT+1))
-        ACTION="cat $FILE | rofi -dmenu -lines 5 -p 'Add/delete a task: '"
+        ACTION="cat $FILE | rofi -dmenu -lines 5 -p 'Add/delete a task or reminder: '"
 	fi
 
 	CMD=$(eval $ACTION)
