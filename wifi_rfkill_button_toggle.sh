@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TOGGLE_STATE=/tmp/radio_toggle.pid
+TOGGLE_STATE=/tmp/radio_toggle.lock
 
 if [ ! -e $TOGGLE_STATE ]; then
     touch $TOGGLE_STATE

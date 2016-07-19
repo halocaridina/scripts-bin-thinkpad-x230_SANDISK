@@ -3,7 +3,7 @@
 TOGGLE="/tmp/screen_lock_toggled_off.pid"
 
 if [ ! -e $TOGGLE ]; then
-    touch $TOGGLE && echo "1" > /tmp/screen_lock_toggled_off.pid
+    touch $TOGGLE && echo "1" > /tmp/screen_lock_toggled_off.lock
     /usr/bin/pkill xautolock
     notify-send 'Auto-Suspend' 'Toggled' -i /usr/share/icons/gnome-colors-common/scalable/status/status_unlocked.svg
 else
