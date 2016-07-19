@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if [ "$(pidof i3)" ] 
+if [ "$(pidof i3)" ]
 then
       /usr/bin/termite -e 'ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "mutt"' --class=mutt
   else

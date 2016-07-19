@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 UPDATES="`/usr/bin/checkupdates`"
 NUM_UPDATES="`/usr/bin/checkupdates | wc -l`"

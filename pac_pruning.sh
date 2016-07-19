@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NUM_2_PRUNE="`/usr/bin/paccache -k 2 -d -v | grep -v "==" | grep -v ^$ | wc -l`"
 

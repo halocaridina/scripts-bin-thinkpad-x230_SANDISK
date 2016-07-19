@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Write/remove a task to do later.
 
 FILE=~/.todo

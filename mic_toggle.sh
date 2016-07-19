@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 TOGGLE="/tmp/mic_mute_toggled.pid"
 
