@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TOGGLE="/tmp/screen_lock_toggled_off.pid"
+TOGGLE="/tmp/screen_lock_toggled_off.lock"
 
 if [ ! -e $TOGGLE ]; then
     touch $TOGGLE && echo "1" > /tmp/screen_lock_toggled_off.lock
