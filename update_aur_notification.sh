@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-export DISPLAY=:0
-export XAUTHORITY=/home/srsantos/.Xauthority
-
 UPDATES="`pacaur -k | awk '{print $3}' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"`"
 NUM_UPDATES="`pacaur -k | awk '{print $3}' | wc -l`"
 
