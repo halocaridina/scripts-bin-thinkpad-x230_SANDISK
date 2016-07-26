@@ -8,6 +8,9 @@ fi
 if [[ $res = "SUSPEND TO RAM" ]]; then
     systemctl suspend
 fi
+if [[ $res = "HIBERNATE TO DISK" ]]; then
+    systemctl hibernate
+fi
 if [[ $res = "LOGOUT TO TTY" ]]; then
     pkill -f xss-lock && pkill -f bash && pkill -f gnome-keyring-d && rm -f /tmp/screen_lock_toggled_off.lock /tmp/openconnect_vpn.lock && pkill -f sleep && i3-msg exit
 fi
