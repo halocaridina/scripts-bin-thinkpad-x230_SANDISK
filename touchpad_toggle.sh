@@ -9,9 +9,9 @@ if [ $STATE -eq 1 ]
 then
     touch /tmp/touchpad_toggled.pid && echo "1" > /tmp/touchpad_toggled.lock
     xinput disable $ID
-    notify-send --expire-time=500 'Touchpad' 'Disabled' -i /usr/share/icons/Adwaita/48x48/devices/input-touchpad.png
+    notify-send --expire-time=500 'Touchpad' 'Disabled' -i /usr/share/icons/AwOkenWhite/clear/128x128/devices/input-touchpad-symbolic.png
 else
     rm -f /tmp/touchpad_toggled.lock
     xinput enable $ID
-    notify-send --expire-time=500 'Touchpad' 'Enabled' -i /usr/share/icons/Adwaita/48x48/devices/input-touchpad.png
+    notify-send --expire-time=500 'Touchpad' 'Enabled' -i /usr/share/icons/AwOkenWhite/clear/128x128/devices/input-touchpad-symbolic.png
 fi
