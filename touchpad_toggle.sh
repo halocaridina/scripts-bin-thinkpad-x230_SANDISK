@@ -9,10 +9,10 @@ if [ $STATE -eq 1 ]
 then
     /usr/bin/touch /tmp/touchpad_toggled.pid && /usr/bin/echo "1" > /tmp/touchpad_toggled.lock
     /usr/bin/xinput disable $ID
-    /usr/bin/notify-send -i /usr/share/icons/gnome/scalable/status/touchpad-disabled-symbolic.svg 'Touchpad' 'Disabled' && sleep 5 &
+    /usr/bin/notify-send -i /usr/share/icons/touchpad/touchpad_disabled.svg 'Touchpad' 'Disabled' && sleep 3 &
 else
     /usr/bin/rm -f /tmp/touchpad_toggled.*
     /usr/bin/xinput enable $ID
-    /usr/bin/notify-send -i /usr/share/icons/gnome/scalable/devices/input-touchpad-symbolic.svg 'Touchpad' 'Enabled' && sleep 5 &
+    /usr/bin/notify-send -i /usr/share/icons/touchpad/touchpad_enabled.svg 'Touchpad' 'Enabled' && sleep 3 &
 fi
 
