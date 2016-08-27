@@ -2,7 +2,7 @@
 
 if [ "$(pidof i3)" ]
 then
-      /usr/bin/termite -e 'ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "mutt"' --class=mutt
+      /usr/bin/termite -e 'ssh -o ServerAliveInterval=100 -t srsantos@the_santos_lab.auburn.edu "mutt"' --class=mutt
   else
-      /usr/bin/ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "mutt"
+      /usr/bin/ssh -o ServerAliveInterval=100 -t srsantos@the_santos_lab.auburn.edu "mutt"
 fi
