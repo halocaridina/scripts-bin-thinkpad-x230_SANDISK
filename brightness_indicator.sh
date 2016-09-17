@@ -23,12 +23,12 @@ fi
 display_brightness=0
 
 if [ "$command" = "up" ]; then
-    display_brightness=$(light -A $increment && light -G | awk -F"." '{print $1}')
+    display_brightness=$(xbacklight -inc $increment && xbacklight -get | awk -F"." '{print $1}')
     icon_name="/usr/share/icons/gnome-colors-common/scalable/notifications/notification-display-brightness-high.svg"
 fi
 
 if [ "$command" = "down" ]; then
-    display_brightness=$(light -U $increment && light -G | awk -F"." '{print $1}')
+    display_brightness=$(xbacklight -dec $increment && xbacklight -get | awk -F"." '{print $1}')
     icon_name="/usr/share/icons/gnome-colors-common/scalable/notifications/notification-display-brightness-low.svg"
 fi
 
