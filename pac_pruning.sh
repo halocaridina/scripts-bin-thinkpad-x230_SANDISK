@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+export XAUTHORITY=/home/srsantos/.Xauthority
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
 NUM_2_PRUNE="`/usr/bin/paccache -k 2 -d -v | grep -v "==" | grep -v ^$ | wc -l`"
 
 if [ "$NUM_2_PRUNE" -lt 40 ]; then
