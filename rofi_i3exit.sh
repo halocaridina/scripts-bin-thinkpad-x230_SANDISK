@@ -11,9 +11,6 @@ fi
 if [[ $res = "SUSPEND TO RAM" ]]; then
     systemctl suspend
 fi
-if [[ $res = "HIBERNATE TO DISK" ]]; then
-    systemctl hibernate
-fi
 if [[ $res = "REBOOT" ]]; then
     systemctl reboot
 fi
