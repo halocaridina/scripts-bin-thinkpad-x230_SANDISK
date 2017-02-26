@@ -32,4 +32,4 @@ if [ "$command" = "down" ]; then
     icon_name="/usr/share/icons/gnome-colors-common/scalable/notifications/notification-display-brightness-low.svg"
 fi
 
-notify-send " " -i $icon_name -h int:value:$display_brightness -h string:synchronous:brightness --expire-time=100
+notify-send " " -i $icon_name -h int:value:$display_brightness -h string:synchronous:brightness --expire-time=1500
