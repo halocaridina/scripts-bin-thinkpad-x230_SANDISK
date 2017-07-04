@@ -1,0 +1,241 @@
+#!/usr/bin/perl
+
+# September 2004
+# Connect by Ryan Wyler <ryan at wyler.net>
+#
+# Purpose: Provide a simple interface to be able to use
+#          the standard osx terminal or an xterm without
+#          having to always memorize all the hosts that
+#          I need to connect to.
+#
+# Known Issues:  The way its currently written does not account
+#                for the same hostname to have multipule ways
+#                to connect to it.  If you want to be able to
+#                connect to a single host with different ports,
+#                protocols, or usernames you have to make different
+#                hostnames for this.  Maybe someday I'll make the
+#                data file xml based or something instead of keyed
+#                off of the hostname.  But until then, enjoy.
+#
+# Installation: 
+# 1. Goto the following url and save the script onto your desktop.
+#    http://files.bridgetone.com/connect
+#
+# 2. Put this script somewhere in your path, /usr/local/bin is not
+#    in the path by default, so unless you modified your /etc/profile
+#    you might just want to put it in /usr/bin.
+#    $ sudo cp ~/Desktop/connect /usr/bin/connect
+#
+# 3. Chmod the script :
+#    $ sudo chmod 755 /usr/bin/connect
+#
+# 4. Run the script and add your remote hosts to it:
+#    $ connect
+#
+# 5. Enjoy.
+#
+#
+# Deinstallation:
+# 1  Remove the file that contains your list of hosts in your home directory
+#    $ rm ~/.connect
+# 
+# 2. Remove the connect script
+#    $ sudo rm /usr/bin/connect
+ 
+
+my (%hosts);
+my ($hostsfile);
+$hostsfile = "$ENV{HOME}/.connect";
+
+sub read_hosts {
+	if (-f "$hostsfile") {
+		open(HOSTS, "< $hostsfile");
+		while(<HOSTS>) {
+			next if (m/^\s*$/);
+			next if (m/^#/);
+			chomp;
+
+			if (m/^(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)$/) {
+				$hosts{$1}->{username} = $2;
+				$hosts{$1}->{ip} = $3;
+				$hosts{$1}->{port} = $4;
+				$hosts{$1}->{protocol} = $5;
+			}
+		}
+		close(HOSTS);
+	}
+}
+
+
+sub write_hosts {
+	my ($host);
+	open(HOSTS,"> $hostsfile");
+	foreach $host (sort(keys(%hosts))) {
+		print HOSTS "${host}	$hosts{$host}->{username}	$hosts{$host}->{ip}	$hosts{$host}->{port} $hosts{$host}->{protocol}\n";
+	}
+	close(HOSTS);
+}
+
+sub print_hosts {
+	my ($host, $num);
+	$num++;
+	printf("Num  Hostname        Username     IP Address      Protocol Port\n");
+	printf("---- --------------- ------------ --------------- -------- ----\n");
+	foreach $host (sort(keys(%hosts))) {
+		printf("%3i. %-15s %-12s %-15s %-8s %s\n",$num,$host,$hosts{$host}->{username},$hosts{$host}->{ip},$hosts{$host}->{protocol},$hosts{$host}->{port});
+		$num++;
+	}
+	print "\n";
+}
+
+sub clrscr {
+	system("clear");
+	print "		Simple Connect by Ryan Wyler\n\n";
+}
+
+sub get_input {
+	my ($text,$orig, $new);
+	$text = $_[0];
+	$orig = $_[1];
+	print "$text [$orig]: ";
+	$new = <>;
+	chomp $new;
+	if ($new eq "") {
+		return $orig;
+	} else {
+		return $new;
+	}
+}
+
+sub insert_host {
+	my ($host, $port, $protocol, $ip, $username);
+	clrscr();
+	if ($_[0] ne "") {
+		$host = $_[0];
+		$ip = $hosts{$host}->{ip};
+		$username = $hosts{$host}->{username};
+		$protocol = $hosts{$host}->{protocol};
+		$port = $hosts{$host}->{port};
+		print "Hostname: $host\n";
+	} else {
+		$protocol = "ssh";
+		$host = get_input("Hostname",$host);
+	}
+
+	$ip = get_input("IP Address",$ip);
+	$username = get_input("Username",$username);
+	if ($host) {
+		$protocol = get_input("Protocol",$protocol);
+		if ($port eq "") {
+			if ($protocol eq "ssh") {
+				$port = "22";
+			} elsif ($protocol eq "telnet") {
+				$port = "23";
+			}
+		}
+		$port = get_input("Port",$port);
+		$hosts{$host}->{port} = $port;
+		$hosts{$host}->{protocol} = $protocol;
+		$hosts{$host}->{ip} = $ip;
+		$hosts{$host}->{username} = $username;
+		write_hosts();
+	}
+}
+
+sub modify_host {
+	my ($hostnum, $host);
+	clrscr();
+	print_hosts();
+	$hostnum = get_input("Host number to modify");
+	$host = get_host_from_num($hostnum);
+	if ($host ne "") {
+		insert_host($host);
+	}
+}
+
+sub delete_host {
+	my ($hostnum, $host);
+	clrscr();
+	print_hosts();
+	$hostnum = get_input("Host number to delete");
+	$host = get_host_from_num($hostnum);
+	if ($host ne "") {
+		delete($hosts{$host});
+		write_hosts();
+	}
+}
+
+sub run_host {
+	my ($host);
+	$host = $_[0];
+	print "Running Host: $host\n";
+	if ($hosts{$host}->{protocol} eq "ssh") {
+		system("ssh -l $hosts{$host}->{username} -p $hosts{$host}->{port} $hosts{$host}->{ip}");
+		exit;
+	} elsif ($hosts{$host}->{protocol} eq "telnet") {
+		system("telnet $hosts{$host}->{ip} $hosts{$host}->{port}");
+		exit;
+	} else {
+		print "Protocol $hosts{$host}->{protocol} not supported yet\n";
+		exit 2;
+	}
+}
+
+sub get_host_from_num {
+	my ($hostnum, $num);
+	$hostnum = $_[0];
+	$num++;
+	foreach $host (sort(keys(%hosts))) {
+		if ($num == $hostnum) {
+			return($host);
+		}
+		$num++;
+	}
+}
+
+sub print_choice_help {
+	clrscr();
+	print "Choices:\n";
+	print "\n";
+	print "#	Type in the number of the host you want to connect to\n";
+	print "a	Add a host\n";
+	print "d	Delete a host\n";
+	print "m	Modify a host\n";
+	print "q	Quit\n";
+	print "?	This extreamly useful help screen\n";
+	print "\n";
+	print "Press Enter to go back to menu";
+	my ($blah);
+	$blah = <>;
+}
+
+sub do_work {
+	my ($choice);
+
+	while($choice ne "q") {
+		clrscr();
+		print_hosts();
+		print "Choice [\#admq?]: ";
+		$choice = <>;
+		chomp $choice;
+
+		if ($choice eq "a") {
+			insert_host();
+		} elsif ($choice eq "d") {
+			delete_host();
+		} elsif ($choice eq "m") {
+			modify_host();
+		} elsif ($choice =~ m/^\d+$/) {
+			my ($host);
+			$host = get_host_from_num($choice);
+			if ($host) {
+				run_host($host);
+			}
+		} elsif ($choice eq "?") {
+			print_choice_help();
+		}
+	}
+}
+
+read_hosts();
+do_work();
