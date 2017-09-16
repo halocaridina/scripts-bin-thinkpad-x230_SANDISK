@@ -1,0 +1,1 @@
+/home/srsantos/.config/pianobar/control-pianobar.sh
