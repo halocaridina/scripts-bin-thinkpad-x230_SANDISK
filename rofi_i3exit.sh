@@ -1,6 +1,6 @@
  #!/usr/bin/env bash
 
-res=$(rofi -dmenu -lines 6 -columns 3 -u 2-6 -font "xos4 Terminus 14" -p "What do you want to do? " -input < ~/.i3/rofi-i3exit.opts)
+res=$(rofi -dmenu -lines 6 -columns 3 -u 2-6 -font "xos4 Terminus 16" -p "What do you want to do? " -input < ~/.i3/rofi-i3exit.opts)
 
 if [[ $res = "LOCK SCREEN" ]]; then
     xset dpms force off
