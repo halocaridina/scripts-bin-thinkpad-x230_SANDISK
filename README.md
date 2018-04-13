@@ -1,2 +1,2 @@
-# scripts-bin
-Shell scripts from Dell Latitude 3150 
+# scripts-bin-thinkpad-x230
+Shell scripts from Thinkpad X230 
