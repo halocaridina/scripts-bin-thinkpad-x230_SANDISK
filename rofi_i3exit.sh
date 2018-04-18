@@ -6,7 +6,11 @@ if [[ $res = "LOCK SCREEN" ]]; then
     xset dpms force off
 fi
 if [[ $res = "LOGOUT TO TTY" ]]; then
-    pkill -f xss-lock & pkill -f bash & pkill -f gpg-agent & rm -f /tmp/screen_lock_toggled_off.lock /tmp/openconnect_vpn.lock & i3-msg exit
+		if [ "$(pidof i3)" ]; then
+			pkill -f xss-lock & pkill -f bash & pkill -f gpg-agent & rm -f /tmp/touchpad_toggled* /tmp/screen_lock_toggled_off.lock /tmp/openconnect_vpn.lock & i3-msg exit
+		  else
+			rm -f /tmp/touchpad_toggled* /tmp/screen_lock_toggled_off.lock & herbstclient quit
+		fi
 fi
 if [[ $res = "SUSPEND TO RAM" ]]; then
     systemctl suspend
