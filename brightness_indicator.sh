@@ -32,7 +32,7 @@ if [ "$command" = "down" ]; then
     icon_name="/usr/share/icons/gnome-colors-common/scalable/notifications/notification-display-brightness-high.svg"
 fi
 
-/usr/local/bin/notify-send.sh " " -i $icon_name -h int:value:$display_brightness -h string:synchronous:brightness --expire-time=3000 --replace-file=/tmp/brightness_notification
+#/usr/local/bin/notify-send.sh " " -i $icon_name -h int:value:$display_brightness -h string:synchronous:brightness --expire-time=3000 --replace-file=/tmp/brightness_notification
 
-###/usr/local/bin/notify-send.sh -i $icon_name --hint=int:transient:1 "Current Brightness: $display_brightness%" "Changed by $increment%" --expire-time=3000 --replace-file=/tmp/brightness_notification
+/usr/local/bin/notify-send.sh -i $icon_name --hint=int:transient:1 "Brightness is at $display_brightness%" --expire-time=3000 --replace-file=/tmp/brightness_notification
 
