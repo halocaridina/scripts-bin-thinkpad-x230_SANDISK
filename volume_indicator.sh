@@ -60,3 +60,4 @@ if [ "$icon_name" = "" ]; then
     fi
 fi
 aplay /home/srsantos/.i3/sounds/Volume.wav > /dev/null 2>&1 && notify-send " " -i $icon_name -h int:value:$display_volume -h string:synchronous:volume --expire-time=1500
+##aplay /home/srsantos/.i3/sounds/Volume.wav > /dev/null 2>&1 && /usr/bin/volnoti-show $display_volume
