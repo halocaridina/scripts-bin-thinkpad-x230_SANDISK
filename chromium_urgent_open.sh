@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 hook_name=luakit_urgent_open
-herbstclient rule label=$0  class=Inox tag=8 focus=on hook=$hook_name
+herbstclient rule label=$0  class=Chromium tag=8 focus=on hook=$hook_name
 # so whenever Luakit shows up, a hook of the following form appears:
 #     rule $hook_name ID
 # where ID is luakits window id.
