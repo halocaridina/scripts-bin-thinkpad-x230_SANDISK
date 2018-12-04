@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 if [ "$(pidof i3)" ]; then
-	/usr/bin/termite -e 'ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "export TERM=xterm-color && mutt"' --class=mutt
+	/usr/bin/termite -e 'ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "export TERM=gnome-256color && mutt"' --class=mutt
   elif [ "$(pidof herbstluftwm)" ]; then
-	/usr/bin/termite -c /home/srsantos/.config/termite/config_herbstluftwm -e 'ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "export TERM=xterm-color && mutt"' --class=mutt
+	/usr/bin/termite -c /home/srsantos/.config/termite/config_herbstluftwm -e 'ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "export TERM=gnome-256color && mutt"' --class=mutt
   else
-	/usr/bin/ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "export TERM=xterm-color && mutt"
+	/usr/bin/ssh -o ServerAliveInterval=100 -t srsantos@ubuntu_server "export TERM=gnome-256color && mutt"
 fi
