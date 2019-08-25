@@ -4,8 +4,8 @@ export XAUTHORITY=/home/srsantos/.Xauthority
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 
-UPDATES="`pacaur -k | grep aur | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | cut -d' ' -f4- | sed -e 's/^[ \t]*//g' | cut -d' ' -f1`"
-NUM_UPDATES="`pacaur -k | grep aur | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | cut -d' ' -f4- | sed -e 's/^[ \t]*//g' | cut -d' ' -f1 | wc -l`"
+UPDATES="`yay -Qua`"
+NUM_UPDATES="`yay -Qua | wc -l`"
 
 if ! [ "`ping -4 -c 1 google.com`" ]; then
     notify-send -u critical "Currently offline." "Will check for AUR updates again in 2 hrs."
