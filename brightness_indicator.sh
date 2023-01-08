@@ -24,12 +24,12 @@ display_brightness=0
 
 if [ "$command" = "up" ]; then
     display_brightness=$(xbacklight -inc $increment && xbacklight -get | awk -F"." '{print $1}')
-    icon_name="/usr/share/icons/gnome-colors-common/scalable/notifications/notification-display-brightness-high.svg"
+    icon_name="/usr/share/icons/Papirus/48x48/status/notification-display-brightness-high.svg"
 fi
 
 if [ "$command" = "down" ]; then
     display_brightness=$(xbacklight -dec $increment && xbacklight -get | awk -F"." '{print $1}')
-    icon_name="/usr/share/icons/gnome-colors-common/scalable/notifications/notification-display-brightness-high.svg"
+    icon_name="/usr/share/icons/Papirus/48x48/status/notification-display-brightness-high.svg"
 fi
 
 #/usr/local/bin/notify-send.sh " " -i $icon_name -h int:value:$display_brightness -h string:synchronous:brightness --expire-time=3000 --replace-file=/tmp/brightness_notification

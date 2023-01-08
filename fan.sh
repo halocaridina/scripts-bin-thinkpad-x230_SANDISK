@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FAN="`sensors | grep fan | awk '{print $2, $3}'`"
+FAN="`sensors | grep fan1 | awk '{print $2, $3}'`"
 NOT_RUNNING="0 RPM"
 
 echo ": ${FAN}"
